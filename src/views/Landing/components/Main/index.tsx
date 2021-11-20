@@ -10,7 +10,7 @@ function Main() {
                 <img src={CatImg} alt="" />
             </div>
             <div className="landing-main-btns-wrap">
-                <Link href="https://app.wonderland.money" target="_blank" rel="noreferrer">
+                <Link href="/dashboard" target="_blank" rel="noreferrer">
                     <div className="landing-main-btn">
                         <p>Enter App</p>
                     </div>
