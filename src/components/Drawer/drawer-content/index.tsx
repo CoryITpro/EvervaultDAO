@@ -127,6 +127,7 @@ function NavContent() {
                     <p>Docs</p>
                 </Link>
             </div>
+            <span>Legacy website</span>
             <Social />
         </div>
     );
