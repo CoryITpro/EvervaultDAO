@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 import Social from "./social";
 import StakeIcon from "../../../assets/icons/stake.svg";
 import BondIcon from "../../../assets/icons/bond.svg";
-import WonderlandIcon from "../../../assets/icons/wonderland-nav-header.svg";
+import SwapIcon from "../../../assets/icons/swap.svg";
+import EvervaultIcon from "../../../assets/icons/evervault-nav-header.svg";
 import DashboardIcon from "../../../assets/icons/dashboard.svg";
 import { trim, shorten } from "../../../helpers";
 import { useAddress } from "../../../hooks";
@@ -38,7 +39,8 @@ function NavContent() {
         <div className="dapp-sidebar">
             <div className="branding-header">
                 <Link href="/" target="_blank">
-                    <img alt="" src={WonderlandIcon} />
+                    <img alt="" src={EvervaultIcon} />
+                    <span>EverVaultDAO</span>
                 </Link>
 
                 {address && (
@@ -110,6 +112,13 @@ function NavContent() {
                             </Link>
                         ))}
                     </div>
+
+                    <a className={classnames("button-dapp-menu", { active: isActive })} href="https://pancakeswap.finance" target="_blank" rel="noreferrer">
+                        <div className="dapp-menu-item">
+                            <img alt="" src={SwapIcon} />
+                            <p>Buy on Pancakeswap</p>
+                        </div>
+                    </a>
                 </div>
             </div>
             <div className="dapp-menu-doc-link">
