@@ -30,6 +30,8 @@
 
             p {
                 color: #ffffff;
+                font-size: 12px;
+                font-family: Montserrat;
             }
         }
     }
@@ -137,6 +139,13 @@
                 color: #ffffff;
             }
         }
+    }
+
+    & > span {
+        width: 100%;
+        text-align: center;
+        color: #ffffff;
+        font-family: Montserrat SemiBold;
     }
 
     .social-row {
