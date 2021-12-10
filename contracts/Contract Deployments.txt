@@ -1,0 +1,25 @@
+TIME
+Memories
+
+Staking
+  When deploygin set TIME, MEMOries contract address and
+  _epochLength as 28800(8 hrs) and _firstEpochNumber as 1 and _firstEpochTime as timestamp now
+
+  Then run setWarmup with 0
+  setContract(0, distributor)
+  setContract(1, warmupContract)
+  setContract(2, 0xD074c8E5fFfE040620a926a6E662Ed74BcC81e6a)
+Memories
+  initialize(Staking Address)
+Staking Helper
+  When deploying set Staking contract and Time token addressesin constructor.
+Warmup
+  Staking Contract and Memories Address
+Treasury
+  Set Time and MIM token address and 0
+Distributor
+  Treasury and Time Address on deploying
+
+
+** ToChanges **
+First of all, TIME and MEMOries token is to be changed.
