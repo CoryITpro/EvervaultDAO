@@ -1,8 +1,7 @@
-import React from "react";
 import "./landing.scss";
 import Header from "./components/Header";
 import Main from "./components/Main";
-import Footer from "./components/Footer";
+import InfoBar from "./components/InfoBar";
 
 function Landing() {
     return (
@@ -11,7 +10,7 @@ function Landing() {
                 <Header />
                 <Main />
             </div>
-            <Footer />
+            <InfoBar />
         </div>
     );
 }

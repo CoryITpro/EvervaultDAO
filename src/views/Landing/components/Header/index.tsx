@@ -23,19 +23,19 @@ function Header() {
                 <span>EVERVAULT</span>
             </div>
             <div className="landing-header-nav-wrap">
-                <Link className="tooltip-item" href="https://github.com/Wonderland-Money/wonderland-frontend" target="_blank">
+                {/* <Link className="tooltip-item" href="https://github.com/Wonderland-Money/wonderland-frontend" target="_blank">
                     <p>GitHub</p>
-                </Link>
-                <Link className="tooltip-item" href="https://twitter.com/wonderland_fi?s=21" target="_blank">
+                </Link> */}
+                <Link className="tooltip-item" href="https://twitter.com/EverVaultDAO" target="_blank">
                     <p>Twitter</p>
                 </Link>
-                <Link className="tooltip-item" href="https://t.me/joinchat/6UybL5rJMEhjN2Y5" target="_blank">
-                    <p>Telegram</p>
+                <Link className="tooltip-item" href="https://medium.com/@evervault" target="_blank">
+                    <p>Medium</p>
                 </Link>
-                <Link className="tooltip-item" href="https://discord.gg/thDHseaHUt" target="_blank">
+                <Link className="tooltip-item" href="https://discord.gg/evervaultdao" target="_blank">
                     <p>Discord</p>
                 </Link>
-                <Link className="tooltip-item" href="https://discord.gg/thDHseaHUt" target="_blank">
+                <Link className="tooltip-item" href="" target="_blank">
                     <p>Buy EVE</p>
                 </Link>
                 {/* <Box component="div" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>

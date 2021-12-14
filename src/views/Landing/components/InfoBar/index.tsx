@@ -6,7 +6,7 @@ import { IReduxState } from "../../../../store/slices/state.interface";
 import { trim } from "../../../../helpers";
 import { Skeleton } from "@material-ui/lab";
 
-function Footer() {
+function InfoBar() {
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const stakingAPY = useSelector<IReduxState, number>(state => {
         return state.app.stakingAPY;
@@ -68,4 +68,4 @@ function Footer() {
     );
 }
 
-export default Footer;
+export default InfoBar;
