@@ -19,7 +19,9 @@ Treasury
   Set Time and MIM token address and 0
 Distributor
   Treasury and Time Address on deploying
-
+WavaxBond
+  chain-link's pair address as _feed
+  https://docs.chain.link/docs/binance-smart-chain-addresses/
 
 ** ToChanges **
 First of all, TIME and MEMOries token is to be changed.
