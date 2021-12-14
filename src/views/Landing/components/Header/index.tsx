@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./header.scss";
-import { ReactComponent as WonderlandIcon } from "../../../../assets/icons/wonderland-icon.svg";
+import { ReactComponent as LogoSvg } from "../../../../assets/icons/evervault-nav-header.svg";
 import { SvgIcon, Link, Box, Popper, Fade } from "@material-ui/core";
 import { ReactComponent as GitHub } from "../../../../assets/icons/github.svg";
 import { ReactComponent as Twitter } from "../../../../assets/icons/twitter.svg";
@@ -18,9 +18,27 @@ function Header() {
 
     return (
         <div className="landing-header">
-            <SvgIcon color="primary" component={WonderlandIcon} viewBox="0 0 174 40" style={{ minWidth: 174, minHeight: 40 }} />
+            <div className="landing-header-logo">
+                <LogoSvg />
+                <span>EVERVAULT</span>
+            </div>
             <div className="landing-header-nav-wrap">
-                <Box component="div" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
+                <Link className="tooltip-item" href="https://github.com/Wonderland-Money/wonderland-frontend" target="_blank">
+                    <p>GitHub</p>
+                </Link>
+                <Link className="tooltip-item" href="https://twitter.com/wonderland_fi?s=21" target="_blank">
+                    <p>Twitter</p>
+                </Link>
+                <Link className="tooltip-item" href="https://t.me/joinchat/6UybL5rJMEhjN2Y5" target="_blank">
+                    <p>Telegram</p>
+                </Link>
+                <Link className="tooltip-item" href="https://discord.gg/thDHseaHUt" target="_blank">
+                    <p>Discord</p>
+                </Link>
+                <Link className="tooltip-item" href="https://discord.gg/thDHseaHUt" target="_blank">
+                    <p>Buy EVE</p>
+                </Link>
+                {/* <Box component="div" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
                     <p className="landing-header-nav-text">Social</p>
                     <Popper className="landing-header-poper" open={open} anchorEl={anchorEl} transition>
                         {({ TransitionProps }) => (
@@ -46,7 +64,7 @@ function Header() {
                             </Fade>
                         )}
                     </Popper>
-                </Box>
+                </Box> */}
             </div>
         </div>
     );

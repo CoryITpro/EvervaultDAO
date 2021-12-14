@@ -1,8 +1,18 @@
-.landing-root{
-    height: 100vh;
-    width: 100%;
-    overflow: scroll;
-    background: rgb(15,16,16);
+.landing {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #000000;
+
+    &-hero {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-image: url("../../assets/icons/homepage-bg.svg");
+        background-size: cover;
+        background-position: top center;
+    }
 }
