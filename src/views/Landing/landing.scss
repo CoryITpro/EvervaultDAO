@@ -8,11 +8,15 @@
     background-color: #000000;
 
     &-hero {
-        height: 100vh;
+        min-height: calc(100vh - 180px);
         display: flex;
         flex-direction: column;
         background-image: url("../../assets/icons/homepage-bg.svg");
         background-size: cover;
-        background-position: top center;
+        background-position: center center;
+
+        @media (max-width: 768px) {
+            min-height: calc(100vh);
+        }
     }
 }

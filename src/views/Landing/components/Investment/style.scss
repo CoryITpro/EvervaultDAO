@@ -1,0 +1,13 @@
+.landing-investment {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 128px 0;
+    background-image: radial-gradient(#2d2238 0%, #221b28 20%, #000000 70%);
+
+    @media (max-width: 768px) {
+        background-image: linear-gradient(90deg, #000000 0%, #1d1822 40%, #221b28 50%, #1d1822 60%, #000000 100%);
+        backdrop-filter: blur(32px);
+    }
+}
