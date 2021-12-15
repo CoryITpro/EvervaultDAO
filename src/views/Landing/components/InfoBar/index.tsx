@@ -21,45 +21,47 @@ function InfoBar() {
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
 
     return (
-        <div className="landing-footer">
+        <div className="landing-infobar">
             <Grid container spacing={1}>
                 <Grid item xs={12} sm={4} md={4} lg={4}>
-                    <div className="landing-footer-item-wrap">
-                        <p className="landing-footer-item-title">Total Staked</p>
-                        <p className="landing-footer-item-value">
+                    <div className="landing-infobar-item-wrap">
+                        <p className="landing-infobar-item-title">Total Staked</p>
+                        <p className="landing-infobar-item-value">
                             {isAppLoading ? (
                                 <Skeleton width="180px" />
                             ) : (
-                                new Intl.NumberFormat("en-US", {
-                                    maximumFractionDigits: 0,
-                                    minimumFractionDigits: 0,
-                                }).format(circSupply)
+                                // new Intl.NumberFormat("en-US", {
+                                //     maximumFractionDigits: 0,
+                                //     minimumFractionDigits: 0,
+                                // }).format(circSupply)
+                                "Coming soon"
                             )}
                         </p>
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={4} md={4} lg={4}>
-                    <div className="landing-footer-item-wrap">
-                        <p className="landing-footer-item-title">Treasury Balance</p>
-                        <p className="landing-footer-item-value">
+                    <div className="landing-infobar-item-wrap">
+                        <p className="landing-infobar-item-title">Treasury Balance</p>
+                        <p className="landing-infobar-item-value">
                             {isAppLoading ? (
                                 <Skeleton width="180px" />
                             ) : (
-                                new Intl.NumberFormat("en-US", {
-                                    style: "currency",
-                                    currency: "USD",
-                                    maximumFractionDigits: 0,
-                                    minimumFractionDigits: 0,
-                                }).format(treasuryBalance)
+                                // new Intl.NumberFormat("en-US", {
+                                //     style: "currency",
+                                //     currency: "USD",
+                                //     maximumFractionDigits: 0,
+                                //     minimumFractionDigits: 0,
+                                // }).format(treasuryBalance)
+                                "Coming soon"
                             )}
                         </p>
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={4} md={4} lg={4}>
-                    <div className="landing-footer-item-wrap">
-                        <p className="landing-footer-item-title">Current APY</p>
-                        <p className="landing-footer-item-value">
-                            {stakingAPY ? <>{new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%</> : <Skeleton width="150px" />}
+                    <div className="landing-infobar-item-wrap">
+                        <p className="landing-infobar-item-title">Current APY</p>
+                        <p className="landing-infobar-item-value">
+                            {stakingAPY ? "Coming soon" /*<>{new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%</>*/ : <Skeleton width="150px" />}
                         </p>
                     </div>
                 </Grid>

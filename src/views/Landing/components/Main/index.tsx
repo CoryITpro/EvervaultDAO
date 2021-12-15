@@ -16,7 +16,7 @@ function Main() {
                 <div className="landing-main-btns-wrap">
                     <Link href="/dashboard" target="_blank" rel="noreferrer">
                         <div className="landing-main-btn">
-                            <p>Enter App</p>
+                            <p>Launch App</p>
                         </div>
                     </Link>
                     <Link href="https://wonderland.gitbook.io/wonderland/" target="_blank" rel="noreferrer">

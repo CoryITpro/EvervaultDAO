@@ -56,10 +56,11 @@
 
             &:last-of-type {
                 font-family: Montserrat Bold;
-                width: 120px;
-                padding: 12px 0;
+                width: 100px;
+                padding: 8px 0;
                 color: #181b1c;
-                background-image: url("../../../../assets/icons/button-gold.svg");
+                border-radius: 8px;
+                background-image: linear-gradient(180deg, #e1c170 3%, #c2a048 10%, #e1c170 60%);
                 background-size: contain;
                 background-position: center;
                 background-repeat: no-repeat;
