@@ -35,7 +35,7 @@ function Header() {
                 <Link className="tooltip-item" href="https://discord.gg/evervaultdao" target="_blank">
                     <p>Discord</p>
                 </Link>
-                <Link className="tooltip-item" href="" target="_blank">
+                <Link className="tooltip-item" href="/">
                     <p>Buy EVE</p>
                 </Link>
                 {/* <Box component="div" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>

@@ -6,9 +6,11 @@
     overflow-y: auto;
     overflow-x: hidden;
     background-color: #000000;
+    align-items: center;
 
     &-hero {
         min-height: calc(100vh - 180px);
+        width: 100%;
         display: flex;
         flex-direction: column;
         background-image: url("../../assets/icons/homepage-bg.svg");

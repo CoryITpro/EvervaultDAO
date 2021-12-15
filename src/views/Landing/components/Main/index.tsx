@@ -14,7 +14,8 @@ function Main() {
                     </p>
                 </div>
                 <div className="landing-main-btns-wrap">
-                    <Link href="/dashboard" target="_blank" rel="noreferrer">
+                    {/* <Link href="/dashboard" target="_blank" rel="noreferrer"> */}
+                    <Link href="/" rel="noreferrer">
                         <div className="landing-main-btn">
                             <p>Launch App</p>
                         </div>

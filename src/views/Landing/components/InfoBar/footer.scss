@@ -1,6 +1,8 @@
 .landing-infobar {
+    width: 100%;
+    max-width: 1280px;
     margin-top: auto;
-    padding: 32px 15%;
+    padding: 32px;
     z-index: 2;
 
     &-item {
