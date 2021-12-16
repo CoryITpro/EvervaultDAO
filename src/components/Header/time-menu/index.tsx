@@ -51,7 +51,7 @@ function TimeMenu() {
     return (
         <div className="time-menu-root" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
             <div className="time-menu-btn">
-                <p>TIME</p>
+                <p>EVE</p>
             </div>
 
             <Popper className="time-menu-popper" open={open} anchorEl={anchorEl} transition>
@@ -59,7 +59,7 @@ function TimeMenu() {
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
                             <Link className="tooltip-item" href={`https://www.traderjoexyz.com/#/trade?inputCurrency=&outputCurrency=${TIME_ADDRESS}`} target="_blank">
-                                <p>Buy on Trader Joe</p>
+                                <p>Buy on Pancake Swap</p>
                             </Link>
 
                             {isEthereumAPIAvailable && (

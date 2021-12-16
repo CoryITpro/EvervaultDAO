@@ -1,17 +1,22 @@
-import React from "react";
 import "./landing.scss";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import Main from "./components/Main";
-import Background from "./components/Background";
+import InfoBar from "./components/InfoBar";
+import Treasury from "./components/Treasury";
+import Investment from "./components/Investment";
+import Footer from "./components/Footer";
 
 function Landing() {
     return (
-        <div className="landing-root">
-            <Header />
-            <Main />
+        <div className="landing">
+            <div className="landing-hero">
+                <Header />
+                <Main />
+            </div>
+            <InfoBar />
+            <Treasury />
+            <Investment />
             <Footer />
-            <Background />
         </div>
     );
 }

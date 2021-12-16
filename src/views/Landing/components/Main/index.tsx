@@ -1,33 +1,31 @@
-import React from "react";
 import { Link } from "@material-ui/core";
+import LogoSvg from "../../../../assets/icons/evervault-nav-header.svg";
 import "./main.scss";
-import CatImg from "../../../../assets/icons/Chershire_Cat.png";
 
 function Main() {
     return (
         <div className="landing-main">
-            <div className="landing-main-img-wrap">
-                <img src={CatImg} alt="" />
-            </div>
-            <div className="landing-main-btns-wrap">
-                <Link href="/dashboard" target="_blank" rel="noreferrer">
-                    <div className="landing-main-btn">
-                        <p>Enter App</p>
-                    </div>
-                </Link>
-                <Link href="https://wonderland.gitbook.io/wonderland/" target="_blank" rel="noreferrer">
-                    <div className="landing-main-btn">
-                        <p>Documentation</p>
-                    </div>
-                </Link>
-            </div>
-            <div className="landing-main-title-wrap">
-                <p>The Defi</p>
-                <p>WonderLand</p>
-            </div>
-            <div className="landing-main-help-text-wrap">
-                <p>Financial tools to grow your wealth - stake</p>
-                <p>and earn compounding interest</p>
+            <div className="landing-main-wrapper">
+                <div className="landing-main-img-wrap">
+                    <img src={LogoSvg} alt="logo svg" />
+                    <h1>EverVault</h1>
+                    <p>
+                        A decentralized reserve currency backed by the formidable poser of <strong>MemeFi</strong>.
+                    </p>
+                </div>
+                <div className="landing-main-btns-wrap">
+                    <Link href="/dashboard" target="_blank" rel="noreferrer">
+                        {/* <Link href="/" rel="noreferrer"> */}
+                        <div className="landing-main-btn">
+                            <p>Launch App</p>
+                        </div>
+                    </Link>
+                    <Link href="https://docs.evervaultdao.finance/" target="_blank" rel="noreferrer">
+                        <div className="landing-main-btn">
+                            <p>Documentation</p>
+                        </div>
+                    </Link>
+                </div>
             </div>
         </div>
     );
