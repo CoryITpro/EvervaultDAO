@@ -14,13 +14,13 @@ function Main() {
                     </p>
                 </div>
                 <div className="landing-main-btns-wrap">
-                    {/* <Link href="/dashboard" target="_blank" rel="noreferrer"> */}
-                    <Link href="/" rel="noreferrer">
+                    <Link href="/dashboard" target="_blank" rel="noreferrer">
+                        {/* <Link href="/" rel="noreferrer"> */}
                         <div className="landing-main-btn">
                             <p>Launch App</p>
                         </div>
                     </Link>
-                    <Link href="https://wonderland.gitbook.io/wonderland/" target="_blank" rel="noreferrer">
+                    <Link href="https://docs.evervaultdao.finance/" target="_blank" rel="noreferrer">
                         <div className="landing-main-btn">
                             <p>Documentation</p>
                         </div>

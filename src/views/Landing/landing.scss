@@ -16,9 +16,25 @@
         background-image: url("../../assets/icons/homepage-bg.svg");
         background-size: cover;
         background-position: center center;
+        background-repeat: no-repeat;
 
-        @media (max-width: 768px) {
+        @media screen and (max-width: 768px) {
             min-height: calc(100vh);
+            background-position: -500px center;
         }
     }
+
+    // &::-webkit-scrollbar {
+    //     width: 12px; /* width of the entire scrollbar */
+    // }
+
+    // &::-webkit-scrollbar-track {
+    //     background: #000000; /* color of the tracking area */
+    // }
+
+    // &::-webkit-scrollbar-thumb {
+    //     background-color: #e1c170; /* color of the scroll thumb */
+    //     border-radius: 20px; /* roundness of the scroll thumb */
+    //     border: 3px solid #000000; /* creates padding around scroll thumb */
+    // }
 }
