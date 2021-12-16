@@ -11,6 +11,7 @@ import DaiEIcon from "../assets/tokens/DAI.e.png";
 import DreggIcon from "../assets/tokens/DREGG.png";
 import EleIcon from "../assets/tokens/ELE.png";
 import ElkIcon from "../assets/tokens/ELK.png";
+import EveIcon from "../assets/tokens/EVE.png";
 import FraxIcon from "../assets/tokens/FRAX.png";
 import GbIcon from "../assets/tokens/GB.png";
 import HatIcon from "../assets/tokens/HAT.png";
@@ -144,6 +145,13 @@ const elk: IToken = {
     name: "ELK",
     address: "0xE1C110E1B1b4A1deD0cAf3E42BfBdbB7b5d7cE1C",
     img: ElkIcon,
+    decimals: 18,
+};
+
+const eve: IToken = {
+    name: "EVE",
+    address: "0xE1C110E1B1b4A1deD0cAf3E42BfBdbB7b5d7cE1C",
+    img: EveIcon,
     decimals: 18,
 };
 
@@ -406,6 +414,7 @@ export default [
     dregg,
     ele,
     elk,
+    eve,
     frax,
     gb,
     hat,
