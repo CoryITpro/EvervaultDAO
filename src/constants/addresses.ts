@@ -1,6 +1,6 @@
 import { Networks } from "./blockchain";
 
-const AVAX_MAINNET = {
+const BSC_MAINNET = {
     DAO_ADDRESS: "0x78a9e536EBdA08b5b9EDbE5785C9D1D50fA3278C",
     MEMO_ADDRESS: "0x136Acd46C134E8269052c62A67042D6bDeDde3C9",
     TIME_ADDRESS: "0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
@@ -13,7 +13,7 @@ const AVAX_MAINNET = {
 };
 
 export const getAddresses = (networkID: number) => {
-    if (networkID === Networks.BSC) return AVAX_MAINNET;
+    if (networkID === Networks.BSC) return BSC_MAINNET;
 
     throw Error("Network don't support");
 };
