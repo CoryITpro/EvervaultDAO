@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at snowtrace.io on 2021-11-05
-*/
-
 // File: contracts/traderjoe/libraries/SafeMath.sol
 
 // SPDX-License-Identifier: GPL-3.0

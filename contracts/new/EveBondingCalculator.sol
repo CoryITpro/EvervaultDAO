@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at snowtrace.io on 2021-11-09
-*/
-
 // SPDX-License-Identifier: AGPL-3.0-or-later
 pragma solidity 0.7.5;
 
@@ -253,7 +249,7 @@ interface IUniswapV2ERC20 {
     function totalSupply() external view returns (uint);
 }
 
-interface IUniswapV2Pair is IUniswapV2ERC20 {
+interface IPancakePair is IUniswapV2ERC20 {
     function getReserves() external view returns (uint112 reserve0, uint112 reserve1, uint32 blockTimestampLast);
     function token0() external view returns ( address );
     function token1() external view returns ( address );
@@ -263,25 +259,25 @@ interface IBondingCalculator {
   function valuation( address pair_, uint amount_ ) external view returns ( uint _value );
 }
 
-contract TimeBondingCalculator is IBondingCalculator {
+contract EveBondingCalculator is IBondingCalculator {
 
     using FixedPoint for *;
     using SafeMath for uint;
     using SafeMath for uint112;
 
-    address public immutable Time;
+    address public immutable Eve;
 
-    constructor( address _Time ) {
-        require( _Time != address(0) );
-        Time = _Time;
+    constructor( address _Eve ) {
+        require( _Eve != address(0) );
+        Eve = _Eve;
     }
 
     function getKValue( address _pair ) public view returns( uint k_ ) {
-        uint token0 = IERC20( IUniswapV2Pair( _pair ).token0() ).decimals();
-        uint token1 = IERC20( IUniswapV2Pair( _pair ).token1() ).decimals();
+        uint token0 = IERC20( IPancakePair( _pair ).token0() ).decimals();
+        uint token1 = IERC20( IPancakePair( _pair ).token1() ).decimals();
         uint decimals = token0.add( token1 ).sub( IERC20( _pair ).decimals() );
 
-        (uint reserve0, uint reserve1, ) = IUniswapV2Pair( _pair ).getReserves();
+        (uint reserve0, uint reserve1, ) = IPancakePair( _pair ).getReserves();
         k_ = reserve0.mul(reserve1).div( 10 ** decimals );
     }
 
@@ -291,20 +287,20 @@ contract TimeBondingCalculator is IBondingCalculator {
 
     function valuation( address _pair, uint amount_ ) external view override returns ( uint _value ) {
         uint totalValue = getTotalValue( _pair );
-        uint totalSupply = IUniswapV2Pair( _pair ).totalSupply();
+        uint totalSupply = IPancakePair( _pair ).totalSupply();
 
         _value = totalValue.mul( FixedPoint.fraction( amount_, totalSupply ).decode112with18() ).div( 1e18 );
     }
 
     function markdown( address _pair ) external view returns ( uint ) {
-        ( uint reserve0, uint reserve1, ) = IUniswapV2Pair( _pair ).getReserves();
+        ( uint reserve0, uint reserve1, ) = IPancakePair( _pair ).getReserves();
 
         uint reserve;
-        if ( IUniswapV2Pair( _pair ).token0() == Time ) {
+        if ( IPancakePair( _pair ).token0() == Eve ) {
             reserve = reserve1;
         } else {
             reserve = reserve0;
         }
-        return reserve.mul( 2 * ( 10 ** IERC20( Time ).decimals() ) ).div( getTotalValue( _pair ) );
+        return reserve.mul( 2 * ( 10 ** IERC20( Eve ).decimals() ) ).div( getTotalValue( _pair ) );
     }
 }

@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at snowtrace.io on 2021-11-05
-*/
-
 // SPDX-License-Identifier: AGPL-3.0-or-later
 pragma solidity 0.7.5;
 
@@ -876,11 +872,11 @@ contract VaultOwned is Ownable {
 
 }
 
-contract TimeERC20Token is ERC20Permit, VaultOwned {
+contract EveERC20Token is ERC20Permit, VaultOwned {
 
     using SafeMath for uint256;
 
-    constructor() ERC20("Time", "TIME", 9) {
+    constructor() ERC20("Eve", "EVE", 9) {
     }
 
     function mint(address account_, uint256 amount_) external onlyVault() {

@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at snowtrace.io on 2021-11-07
-*/
-
 // SPDX-License-Identifier: AGPL-3.0-or-later
 pragma solidity 0.7.5;
 
@@ -1007,7 +1003,7 @@ contract Ownable is IOwnable {
     }
 }
 
-contract MEMOries is ERC20Permit, Ownable {
+contract Loot is ERC20Permit, Ownable {
 
     using SafeMath for uint256;
 
@@ -1051,7 +1047,7 @@ contract MEMOries is ERC20Permit, Ownable {
 
     mapping ( address => mapping ( address => uint256 ) ) private _allowedValue;
 
-    constructor() ERC20("MEMOries", "MEMO", 9) ERC20Permit() {
+    constructor() ERC20("Loot", "LOOT", 9) ERC20Permit() {
         initializer = msg.sender;
         _totalSupply = INITIAL_FRAGMENTS_SUPPLY;
         _gonsPerFragment = TOTAL_GONS.div(_totalSupply);
@@ -1077,7 +1073,7 @@ contract MEMOries is ERC20Permit, Ownable {
     }
 
     /**
-        @notice increases MEMOries supply to increase staking balances relative to profit_
+        @notice increases Loot supply to increase staking balances relative to profit_
         @param profit_ uint256
         @return uint256
      */
@@ -1146,7 +1142,7 @@ contract MEMOries is ERC20Permit, Ownable {
         return gons.div( _gonsPerFragment );
     }
 
-    // Staking contract holds excess MEMOries
+    // Staking contract holds excess Loot
     function circulatingSupply() public view returns ( uint ) {
         return _totalSupply.sub( balanceOf( stakingContract ) );
     }
