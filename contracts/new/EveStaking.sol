@@ -606,7 +606,7 @@ contract EveStaking is Ownable {
         require( _Eve != address(0) );
         Eve = _Eve;
         require( _Loot != address(0) );
-        Eve = _Eve;
+        Loot = _Eve;
 
         epoch = Epoch({
             length: _epochLength,

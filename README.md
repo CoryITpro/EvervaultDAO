@@ -10,6 +10,8 @@
 8. Deploy `StakingHelper(EveStakingAddress, EveAddress)`
 9. Deploy `MultiSigWalletWithDailyLimit(ownersArray, required, dailyLimit)`
 10. Deploy `EveBondingCalculator(EveAddress)`
+11. Deploy `USDTBond()`
+12. Deploy `BondDepository(Eve, LPPairAddress, Trasury, DAO, Calculator)` for Eve-BUSD
 
     Loot > SetIndex
     EveStaking > SetContract
