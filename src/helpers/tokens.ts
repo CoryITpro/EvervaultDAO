@@ -148,7 +148,7 @@ const elk: IToken = {
     decimals: 18,
 };
 
-const eve: IToken = {
+export const eve: IToken = {
     name: "EVE",
     address: "0xE1C110E1B1b4A1deD0cAf3E42BfBdbB7b5d7cE1C",
     img: EveIcon,
