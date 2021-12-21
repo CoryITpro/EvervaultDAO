@@ -550,7 +550,7 @@ contract Ownable is IOwnable {
 }
 
 interface ILoot {
-    function rebase( uint256 ohmProfit_, uint epoch_) external returns (uint256);
+    function rebase( uint256 lootProfit_, uint epoch_) external returns (uint256);
 
     function circulatingSupply() external view returns (uint256);
 
@@ -625,7 +625,7 @@ contract EveStaking is Ownable {
     mapping( address => Claim ) public warmupInfo;
 
     /**
-        @notice stake OHM to enter warmup
+        @notice stake LOOT to enter warmup
         @param _amount uint
         @return bool
      */
@@ -649,7 +649,7 @@ contract EveStaking is Ownable {
     }
 
     /**
-        @notice retrieve sOHM from warmup
+        @notice retrieve LOOT from warmup
         @param _recipient address
      */
     function claim ( address _recipient ) public {
@@ -661,7 +661,7 @@ contract EveStaking is Ownable {
     }
 
     /**
-        @notice forfeit sOHM in warmup and retrieve OHM
+        @notice forfeit LOOT in warmup and retrieve LOOT
      */
     function forfeit() external {
         Claim memory info = warmupInfo[ msg.sender ];
@@ -679,7 +679,7 @@ contract EveStaking is Ownable {
     }
 
     /**
-        @notice redeem sOHM for OHM
+        @notice redeem LOOT for EVE
         @param _amount uint
         @param _trigger bool
      */
@@ -692,7 +692,7 @@ contract EveStaking is Ownable {
     }
 
     /**
-        @notice returns the sOHM index, which tracks rebase growth
+        @notice returns the LOOT index, which tracks rebase growth
         @return uint
      */
     function index() public view returns ( uint ) {
@@ -726,7 +726,7 @@ contract EveStaking is Ownable {
     }
 
     /**
-        @notice returns contract OHM holdings, including bonuses provided
+        @notice returns contract EVE holdings, including bonuses provided
         @return uint
      */
     function contractBalance() public view returns ( uint ) {

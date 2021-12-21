@@ -91,10 +91,10 @@ function Stake() {
         setQuantity("");
     };
 
-    const trimmedMemoBalance = trim(Number(lootBalance), 6);
+    const trimmedLootBalance = trim(Number(lootBalance), 6);
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
     const stakingRebasePercentage = trim(stakingRebase * 100, 4);
-    const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedMemoBalance), 6);
+    const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedLootBalance), 6);
 
     return (
         <div className="stake-view">
@@ -257,7 +257,7 @@ function Stake() {
 
                                         <div className="data-row">
                                             <p className="data-row-name">Your Staked Balance</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedMemoBalance} LOOT</>}</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedLootBalance} LOOT</>}</p>
                                         </div>
 
                                         <div className="data-row">
