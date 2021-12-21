@@ -16,6 +16,7 @@ import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
 import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
 import { sleep } from "../../helpers";
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 interface IChangeApproval {
     bond: Bond;
@@ -114,15 +115,12 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     const busdPrice = getTokenPrice("BUSD");
     marketPrice = (marketPrice / Math.pow(10, 9)) * busdPrice;
-
     try {
         bondPrice = await bondContract.bondPriceInUSD();
-
         // if (bond.name === avaxTime.name) {
         //     const avaxPrice = getTokenPrice("AVAX");
         //     bondPrice = bondPrice * avaxPrice;
         // }
-
         bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
     } catch (e) {
         console.log("error getting bondPriceInUSD", e);

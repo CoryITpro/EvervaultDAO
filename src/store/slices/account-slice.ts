@@ -169,7 +169,7 @@ interface ICalcUserTokenDetails {
 export interface IUserTokenDetails {
     allowance: number;
     balance: number;
-    isAvax?: boolean;
+    isEve?: boolean;
 }
 
 export const calculateUserTokenDetails = createAsyncThunk("account/calculateUserTokenDetails", async ({ address, token, networkID, provider }: ICalcUserTokenDetails) => {
@@ -185,7 +185,7 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
         });
     }
 
-    if (token.isAvax) {
+    if (token.isEve) {
         const avaxBalance = await provider.getSigner().getBalance();
         const avaxVal = ethers.utils.formatEther(avaxBalance);
 
@@ -193,18 +193,16 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
             token: token.name,
             tokenIcon: token.img,
             balance: Number(avaxVal),
-            isAvax: true,
+            isEve: true,
         };
     }
 
     const addresses = getAddresses(networkID);
-
     const tokenContract = new ethers.Contract(token.address, BUSDTokenContract, provider);
-
     let allowance,
         balance = "0";
 
-    allowance = await tokenContract.allowance(address, addresses.ZAPIN_ADDRESS);
+    // allowance = await tokenContract.allowance(address, addresses.ZAPIN_ADDRESS);
     balance = await tokenContract.balanceOf(address);
 
     const balanceVal = Number(balance) / Math.pow(10, token.decimals);
@@ -213,7 +211,7 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
         token: token.name,
         address: token.address,
         img: token.img,
-        allowance: Number(allowance),
+        // allowance: Number(allowance),
         balance: Number(balanceVal),
     };
 });

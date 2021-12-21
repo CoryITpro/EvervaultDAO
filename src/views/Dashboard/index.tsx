@@ -9,7 +9,6 @@ import { IAppSlice } from "../../store/slices/app-slice";
 function Dashboard() {
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const app = useSelector<IReduxState, IAppSlice>(state => state.app);
-
     const trimmedStakingAPY = trim(app.stakingAPY * 100, 1);
 
     return (

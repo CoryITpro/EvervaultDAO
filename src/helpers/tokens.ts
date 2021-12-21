@@ -52,13 +52,12 @@ export interface IToken {
     name: string;
     address: string;
     img: string;
-    isAvax?: boolean;
+    isEve?: boolean;
     decimals: number;
 }
 
 export const avax: IToken = {
     name: "AVAX",
-    isAvax: true,
     img: AvaxIcon,
     address: "",
     decimals: 18,
@@ -153,6 +152,7 @@ export const eve: IToken = {
     address: "0xE1C110E1B1b4A1deD0cAf3E42BfBdbB7b5d7cE1C",
     img: EveIcon,
     decimals: 18,
+    isEve: true,
 };
 
 const frax: IToken = {
