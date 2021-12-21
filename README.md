@@ -17,8 +17,7 @@
     And `BusdBond > setAdjustment(false, 0, 178, 2160)`
 15. Run `BusdEveBond > InitializeBondTerms(111, 0, 75, 10000, 2000000000000000, 0, 432000)`
     And `BusdEveBond > setAdjustment(false, 0, 111, 3600)`
+16. Run `EveStaking > setContract(0, DistributorAddress)` and `EveStaking > setContract(1, StakingWarmupAddress)`
 
-    EveStaking > SetContract
-    EveStaking > setWarmup
     EveTreasury > toggle
     Distributor > addRecipient

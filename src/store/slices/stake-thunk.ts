@@ -27,23 +27,23 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     const addresses = getAddresses(networkID);
 
     const signer = provider.getSigner();
-    const timeContract = new ethers.Contract(addresses.EVE_ADDRESS, EveTokenContract, signer);
-    const memoContract = new ethers.Contract(addresses.LOOT_ADDRESS, LootTokenContract, signer);
+    const eveContract = new ethers.Contract(addresses.EVE_ADDRESS, EveTokenContract, signer);
+    const lootContract = new ethers.Contract(addresses.LOOT_ADDRESS, LootTokenContract, signer);
 
     let approveTx;
     try {
         const gasPrice = await getGasPrice(provider);
 
-        if (token === "time") {
-            approveTx = await timeContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        if (token === "eve") {
+            approveTx = await eveContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
-        if (token === "memo") {
-            approveTx = await memoContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        if (token === "loot") {
+            approveTx = await lootContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
-        const text = "Approve " + (token === "time" ? "Staking" : "Unstaking");
-        const pendingTxnType = token === "time" ? "approve_staking" : "approve_unstaking";
+        const text = "Approve " + (token === "eve" ? "Staking" : "Unstaking");
+        const pendingTxnType = token === "eve" ? "approve_staking" : "approve_unstaking";
 
         dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
         await approveTx.wait();
@@ -58,14 +58,14 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
 
     await sleep(2);
 
-    const stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
-    const unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
+    const stakeAllowance = await eveContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
+    const unstakeAllowance = await lootContract.allowance(address, addresses.STAKING_ADDRESS);
 
     return dispatch(
         fetchAccountSuccess({
             staking: {
-                timeStake: Number(stakeAllowance),
-                memoUnstake: Number(unstakeAllowance),
+                eveStake: Number(stakeAllowance),
+                lootUnstake: Number(unstakeAllowance),
             },
         }),
     );
@@ -90,16 +90,17 @@ export const changeStake = createAsyncThunk("stake/changeStake", async ({ action
     const stakingHelper = new ethers.Contract(addresses.STAKING_HELPER_ADDRESS, StakingHelperContract, signer);
 
     let stakeTx;
-
     try {
         const gasPrice = await getGasPrice(provider);
 
         if (action === "stake") {
+            console.log(stakingHelper);
             stakeTx = await stakingHelper.stake(ethers.utils.parseUnits(value, "gwei"), address, { gasPrice });
         } else {
             stakeTx = await staking.unstake(ethers.utils.parseUnits(value, "gwei"), true, { gasPrice });
         }
         const pendingTxnType = action === "stake" ? "staking" : "unstaking";
+
         dispatch(fetchPendingTxns({ txnHash: stakeTx.hash, text: getStakingTypeText(action), type: pendingTxnType }));
         await stakeTx.wait();
         dispatch(success({ text: messages.tx_successfully_send }));
@@ -110,6 +111,7 @@ export const changeStake = createAsyncThunk("stake/changeStake", async ({ action
             dispatch(clearPendingTxn(stakeTx.hash));
         }
     }
+
     dispatch(info({ text: messages.your_balance_update_soon }));
     await sleep(10);
     await dispatch(getBalances({ address, networkID, provider }));
