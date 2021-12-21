@@ -30,8 +30,7 @@ export const loadAppDetails = createAsyncThunk(
 
         const totalSupply = (await timeContract.totalSupply()) / Math.pow(10, 9);
         const circSupply = (await memoContract.circulatingSupply()) / Math.pow(10, 9);
-        console.log(circSupply);
-        console.log(marketPrice);
+
         const stakingTVL = circSupply * marketPrice;
         const marketCap = totalSupply * marketPrice;
 
@@ -46,7 +45,6 @@ export const loadAppDetails = createAsyncThunk(
         const timeBondsAmounts = await Promise.all(timeBondsAmountsPromises);
         const timeAmount = timeBondsAmounts.reduce((timeAmount0, timeAmount1) => timeAmount0 + timeAmount1, 0);
         const timeSupply = totalSupply - timeAmount;
-
         const rfv = rfvTreasury / timeSupply;
 
         const epoch = await stakingContract.epoch();
