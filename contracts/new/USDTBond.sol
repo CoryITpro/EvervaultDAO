@@ -668,7 +668,7 @@ contract EveBondDepository is Ownable {
 
     /* ======== STATE VARIABLES ======== */
 
-    address public immutable Eve; // token given as payment for bond
+    address public immutable EVE; // token given as payment for bond
     address public immutable principle; // token used to create bond
     address public immutable treasury; // mints Eve when receives principle
     address public immutable DAO; // receives profit share from bond

@@ -303,7 +303,7 @@ contract EveTreasury is Ownable {
     mapping( address => bool ) public isRewardManager;
     mapping( address => uint32 ) public rewardManagerQueue; // Delays changes to mapping.
 
-    address public MEMOries;
+    address public Loot;
     uint public sEVEQueue; // Delays change to sEVE address
 
     uint public totalReserves; // Risk-free value of all assets
@@ -385,7 +385,7 @@ contract EveTreasury is Ownable {
 
         uint value = valueOf( _token, _amount );
 
-        uint maximumDebt = IERC20( MEMOries ).balanceOf( msg.sender ); // Can only borrow against sEVE held
+        uint maximumDebt = IERC20( Loot ).balanceOf( msg.sender ); // Can only borrow against sEVE held
         uint availableDebt = maximumDebt.sub( debtorBalance[ msg.sender ] );
         require( value <= availableDebt, "Exceeds debt limit" );
 
@@ -658,7 +658,7 @@ contract EveTreasury is Ownable {
 
         } else if ( _managing == MANAGING.SEVE ) { // 9
             sEVEQueue = 0;
-            MEMOries = _address;
+            Loot = _address;
             result = true;
 
         } else return false;
