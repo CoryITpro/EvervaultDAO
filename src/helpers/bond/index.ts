@@ -6,7 +6,7 @@ import BUSDIcon from "../../assets/tokens/BUSD.svg";
 // import AvaxIcon from "../../assets/tokens/AVAX.svg";
 import BUSDEVEIcon from "../../assets/tokens/BUSD-EVE.svg";
 // import AvaxTimeIcon from "../../assets/tokens/TIME-AVAX.svg";
-
+import EVESAFESHIBIcon from "../../assets/tokens/BUSD-EVE.svg";
 // import { StableBondContract, LpBondContract, WavaxBondContract, StableReserveContract, LpReserveContract } from "../../abi";
 import { StableBondContract, LpBondContract, StableReserveContract, LpReserveContract } from "../../abi";
 
@@ -56,23 +56,23 @@ export const busdeve = new LPBond({
             reserveAddress: "0xf1428fa2075584048db7e82A1D01E1f1A8e7A5B2",
         },
     },
-    lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
+    lpUrl: "https://pancake.kiemtienonline360.com/#/add/0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7/0xe5d08A0C671416Ca254cDAe8B8D5f08cb911f0B7",
 });
 
-// export const avaxTime = new CustomLPBond({
-//     name: "avax_time_lp",
-//     displayName: "TIME-AVAX LP",
-//     bondToken: "AVAX",
-//     bondIconSvg: AvaxTimeIcon,
-//     bondContractABI: LpBondContract,
-//     reserveContractAbi: LpReserveContract,
-//     networkAddrs: {
-//         [Networks.BSC]: {
-//             bondAddress: "0xc26850686ce755FFb8690EA156E5A6cf03DcBDE1",
-//             reserveAddress: "0xf64e1c5B6E17031f5504481Ac8145F4c3eab4917",
-//         },
-//     },
-//     lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
-// });
+export const evesafeshib = new CustomLPBond({
+    name: "eve_safeshib_lp",
+    displayName: "EVE-SAFESHIB LP",
+    bondToken: "SAFESHIB",
+    bondIconSvg: EVESAFESHIBIcon,
+    bondContractABI: LpBondContract,
+    reserveContractAbi: LpReserveContract,
+    networkAddrs: {
+        [Networks.BSC]: {
+            bondAddress: "0xc26850686ce755FFb8690EA156E5A6cf03DcBDE1",
+            reserveAddress: "0xf64e1c5B6E17031f5504481Ac8145F4c3eab4917",
+        },
+    },
+    lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
+});
 
-export default [busd, busdeve];
+export default [busd, busdeve, evesafeshib];

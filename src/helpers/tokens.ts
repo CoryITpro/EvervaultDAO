@@ -149,7 +149,7 @@ const elk: IToken = {
 
 export const eve: IToken = {
     name: "EVE",
-    address: "0xE1C110E1B1b4A1deD0cAf3E42BfBdbB7b5d7cE1C",
+    address: "0xe5d08a0c671416ca254cdae8b8d5f08cb911f0b7",
     img: EveIcon,
     decimals: 18,
     isEve: true,

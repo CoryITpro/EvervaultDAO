@@ -48,9 +48,9 @@ function App() {
         }
 
         if (whichDetails === "userTokens" && address && connected) {
-            // tokens.map(token => {
-            //     dispatch(calculateUserTokenDetails({ address, token, provider, networkID: chainID }));
-            // });
+            tokens.map(token => {
+                dispatch(calculateUserTokenDetails({ address, token, provider, networkID: chainID }));
+            });
         }
     }
 
@@ -60,9 +60,9 @@ function App() {
             bonds.map(bond => {
                 dispatch(calcBondDetails({ bond, value: null, provider: loadProvider, networkID: chainID }));
             });
-            // tokens.map(token => {
-            //     dispatch(calculateUserTokenDetails({ address: "", token, provider, networkID: chainID }));
-            // });
+            tokens.map(token => {
+                dispatch(calculateUserTokenDetails({ address: "", token, provider, networkID: chainID }));
+            });
         },
         [connected],
     );
