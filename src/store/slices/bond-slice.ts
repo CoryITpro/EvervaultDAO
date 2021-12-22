@@ -159,6 +159,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
         purchased = await bondCalcContract.valuation(assetAddress, purchased);
         purchased = (markdown / Math.pow(10, 18)) * (purchased / Math.pow(10, 9));
+
         if (bond.name === evesafeshib.name) {
             const safeshibPrice = getTokenPrice("SAFESHIB");
             purchased = purchased * safeshibPrice;
@@ -209,7 +210,6 @@ export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, a
         if (useAvax) {
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { value: valueInWei, gasPrice });
         } else {
-            console.log(valueInWei);
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { gasPrice });
         }
         dispatch(
