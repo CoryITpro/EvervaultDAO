@@ -10,14 +10,15 @@ function Main() {
                     <img src={LogoSvg} alt="logo svg" />
                     <h1>EverVault</h1>
                     <p>
-                        A decentralized reserve currency backed by the formidable poser of <strong>MemeFi</strong>.
+                        A decentralized reserve currency backed by the formidable power of <strong>MemeFi</strong>.
                     </p>
                 </div>
                 <div className="landing-main-btns-wrap">
-                    <Link href="/dashboard" target="_blank" rel="noreferrer">
-                        {/* <Link href="/" rel="noreferrer"> */}
+                    {/* <Link href="/dashboard" target="_blank" rel="noreferrer"> */}
+                    <Link href="/" rel="noreferrer">
                         <div className="landing-main-btn">
-                            <p>Launch App</p>
+                            {/* <p>Launch App</p> */}
+                            <p>Coming soon</p>
                         </div>
                     </Link>
                     <Link href="https://docs.evervaultdao.finance/" target="_blank" rel="noreferrer">

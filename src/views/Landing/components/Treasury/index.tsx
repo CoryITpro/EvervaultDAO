@@ -9,7 +9,8 @@ const Treasury = () => (
             <div className="landing-treasury-stake">
                 <span>EVE Staking Rewards</span>
                 <h1>Coming soon</h1>
-                <Link href="/stake">Stake Now</Link>
+                {/* <Link href="/stake">Stake Now</Link> */}
+                <Link href="/">Coming soon</Link>
             </div>
             <span></span>
             <div className="landing-treasury-info">

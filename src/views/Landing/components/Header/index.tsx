@@ -36,7 +36,8 @@ function Header() {
                     <p>Discord</p>
                 </Link>
                 <Link className="tooltip-item" href="/">
-                    <p>Buy EVE</p>
+                    {/* <p>Buy EVE</p> */}
+                    <p>Coming soon</p>
                 </Link>
                 {/* <Box component="div" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
                     <p className="landing-header-nav-text">Social</p>
