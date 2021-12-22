@@ -10,12 +10,13 @@ import { Bond } from "../../helpers/bond/bond";
 import { Networks } from "../../constants/blockchain";
 import { getBondCalculator } from "../../helpers/bond-calculator";
 import { RootState } from "../store";
-import { avaxTime, wavax } from "../../helpers/bond";
+import { evesafeshib } from "../../helpers/bond";
 import { error, warning, success, info } from "../slices/messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
 import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
 import { sleep } from "../../helpers";
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 interface IChangeApproval {
     bond: Bond;
@@ -104,7 +105,6 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         bondQuote = 0;
 
     const addresses = getAddresses(networkID);
-
     const bondContract = bond.getContractForBond(networkID, provider);
     const bondCalcContract = getBondCalculator(networkID, provider);
 
@@ -113,17 +113,14 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     let marketPrice = await getMarketPrice(networkID, provider);
 
-    const mimPrice = getTokenPrice("MIM");
-    marketPrice = (marketPrice / Math.pow(10, 9)) * mimPrice;
-
+    const busdPrice = getTokenPrice("BUSD");
+    marketPrice = (marketPrice / Math.pow(10, 9)) * busdPrice;
     try {
         bondPrice = await bondContract.bondPriceInUSD();
-
-        if (bond.name === avaxTime.name) {
-            const avaxPrice = getTokenPrice("AVAX");
-            bondPrice = bondPrice * avaxPrice;
+        if (bond.name === evesafeshib.name) {
+            const safeshibPrice = getTokenPrice("SAFESHIB");
+            bondPrice = bondPrice * safeshibPrice;
         }
-
         bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
     } catch (e) {
         console.log("error getting bondPriceInUSD", e);
@@ -163,14 +160,14 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         purchased = await bondCalcContract.valuation(assetAddress, purchased);
         purchased = (markdown / Math.pow(10, 18)) * (purchased / Math.pow(10, 9));
 
-        if (bond.name === avaxTime.name) {
-            const avaxPrice = getTokenPrice("AVAX");
-            purchased = purchased * avaxPrice;
-        }
-    } else if (bond.name === wavax.name) {
-        purchased = purchased / Math.pow(10, 18);
-        const avaxPrice = getTokenPrice("AVAX");
-        purchased = purchased * avaxPrice;
+        // if (bond.name === avaxTime.name) {
+        //     const avaxPrice = getTokenPrice("AVAX");
+        //     purchased = purchased * avaxPrice;
+        // }
+        // } else if (bond.name === wavax.name) {
+        //     purchased = purchased / Math.pow(10, 18);
+        //     const avaxPrice = getTokenPrice("AVAX");
+        //     purchased = purchased * avaxPrice;
     } else {
         purchased = purchased / Math.pow(10, 18);
     }
@@ -210,10 +207,10 @@ export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, a
     let bondTx;
     try {
         const gasPrice = await getGasPrice(provider);
-
         if (useAvax) {
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { value: valueInWei, gasPrice });
         } else {
+            console.log(valueInWei);
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { gasPrice });
         }
         dispatch(

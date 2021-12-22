@@ -27,17 +27,17 @@ function Stake() {
     const fiveDayRate = useSelector<IReduxState, number>(state => {
         return state.app.fiveDayRate;
     });
-    const timeBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.time;
+    const eveBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.eve;
     });
-    const memoBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.memo;
+    const lootBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.loot;
     });
     const stakeAllowance = useSelector<IReduxState, number>(state => {
-        return state.account.staking && state.account.staking.time;
+        return state.account.staking && state.account.staking.eve;
     });
     const unstakeAllowance = useSelector<IReduxState, number>(state => {
-        return state.account.staking && state.account.staking.memo;
+        return state.account.staking && state.account.staking.loot;
     });
     const stakingRebase = useSelector<IReduxState, number>(state => {
         return state.app.stakingRebase;
@@ -55,9 +55,9 @@ function Stake() {
 
     const setMax = () => {
         if (view === 0) {
-            setQuantity(timeBalance);
+            setQuantity(eveBalance);
         } else {
-            setQuantity(memoBalance);
+            setQuantity(lootBalance);
         }
     };
 
@@ -79,8 +79,8 @@ function Stake() {
 
     const hasAllowance = useCallback(
         token => {
-            if (token === "time") return stakeAllowance > 0;
-            if (token === "memo") return unstakeAllowance > 0;
+            if (token === "eve") return stakeAllowance > 0;
+            if (token === "loot") return unstakeAllowance > 0;
             return 0;
         },
         [stakeAllowance],
@@ -91,10 +91,10 @@ function Stake() {
         setQuantity("");
     };
 
-    const trimmedMemoBalance = trim(Number(memoBalance), 6);
+    const trimmedLootBalance = trim(Number(lootBalance), 6);
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
     const stakingRebasePercentage = trim(stakingRebase * 100, 4);
-    const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedMemoBalance), 6);
+    const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedLootBalance), 6);
 
     return (
         <div className="stake-view">
@@ -141,7 +141,7 @@ function Stake() {
                                     <Grid item xs={6} sm={4} md={4} lg={4}>
                                         <div className="stake-card-index">
                                             <p className="stake-card-metrics-title">Current Index</p>
-                                            <p className="stake-card-metrics-value">{currentIndex ? <>{trim(Number(currentIndex), 2)} TIME</> : <Skeleton width="150px" />}</p>
+                                            <p className="stake-card-metrics-value">{currentIndex ? <>{trim(Number(currentIndex), 2)} EVE</> : <Skeleton width="150px" />}</p>
                                         </div>
                                     </Grid>
                                 </Grid>
@@ -188,7 +188,7 @@ function Stake() {
 
                                             {view === 0 && (
                                                 <div className="stake-card-tab-panel">
-                                                    {address && hasAllowance("time") ? (
+                                                    {address && hasAllowance("eve") ? (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
@@ -196,14 +196,14 @@ function Stake() {
                                                                 onChangeStake("stake");
                                                             }}
                                                         >
-                                                            <p>{txnButtonText(pendingTransactions, "staking", "Stake TIME")}</p>
+                                                            <p>{txnButtonText(pendingTransactions, "staking", "Stake EVE")}</p>
                                                         </div>
                                                     ) : (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
                                                                 if (isPendingTxn(pendingTransactions, "approve_staking")) return;
-                                                                onSeekApproval("time");
+                                                                onSeekApproval("eve");
                                                             }}
                                                         >
                                                             <p>{txnButtonText(pendingTransactions, "approve_staking", "Approve")}</p>
@@ -214,7 +214,7 @@ function Stake() {
 
                                             {view === 1 && (
                                                 <div className="stake-card-tab-panel">
-                                                    {address && hasAllowance("memo") ? (
+                                                    {address && hasAllowance("loot") ? (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
@@ -222,14 +222,14 @@ function Stake() {
                                                                 onChangeStake("unstake");
                                                             }}
                                                         >
-                                                            <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake TIME")}</p>
+                                                            <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake EVE")}</p>
                                                         </div>
                                                     ) : (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
                                                                 if (isPendingTxn(pendingTransactions, "approve_unstaking")) return;
-                                                                onSeekApproval("memo");
+                                                                onSeekApproval("loot");
                                                             }}
                                                         >
                                                             <p>{txnButtonText(pendingTransactions, "approve_unstaking", "Approve")}</p>
@@ -240,7 +240,7 @@ function Stake() {
                                         </div>
 
                                         <div className="stake-card-action-help-text">
-                                            {address && ((!hasAllowance("time") && view === 0) || (!hasAllowance("memo") && view === 1)) && (
+                                            {address && ((!hasAllowance("eve") && view === 0) || (!hasAllowance("loot") && view === 1)) && (
                                                 <p>
                                                     Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only
                                                     requires you to perform the "Stake" or "Unstake" transaction.
@@ -252,17 +252,17 @@ function Stake() {
                                     <div className="stake-user-data">
                                         <div className="data-row">
                                             <p className="data-row-name">Your Balance</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trim(Number(timeBalance), 4)} TIME</>}</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trim(Number(eveBalance), 4)} EVE</>}</p>
                                         </div>
 
                                         <div className="data-row">
                                             <p className="data-row-name">Your Staked Balance</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedMemoBalance} MEMO</>}</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedLootBalance} LOOT</>}</p>
                                         </div>
 
                                         <div className="data-row">
                                             <p className="data-row-name">Next Reward Amount</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{nextRewardValue} MEMO</>}</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{nextRewardValue} LOOT</>}</p>
                                         </div>
 
                                         <div className="data-row">

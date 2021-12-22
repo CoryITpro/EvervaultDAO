@@ -8,7 +8,7 @@ import { getTokenUrl } from "../../../helpers";
 
 const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async () => {
     const tokenImage = getTokenUrl(tokenSymbol.toLowerCase());
-
+    console.log(tokenAddress, tokenSymbol, TOKEN_DECIMALS, tokenImage);
     if (window.ethereum) {
         try {
             await window.ethereum.request({
@@ -39,8 +39,8 @@ function TimeMenu() {
 
     const addresses = getAddresses(networkID);
 
-    const MEMO_ADDRESS = addresses.MEMO_ADDRESS;
-    const TIME_ADDRESS = addresses.TIME_ADDRESS;
+    const LOOT_ADDRESS = addresses.LOOT_ADDRESS;
+    const EVE_ADDRESS = addresses.EVE_ADDRESS;
 
     const handleClick = (event: any) => {
         setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -58,7 +58,7 @@ function TimeMenu() {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            <Link className="tooltip-item" href={`https://www.traderjoexyz.com/#/trade?inputCurrency=&outputCurrency=${TIME_ADDRESS}`} target="_blank">
+                            <Link className="tooltip-item" href="https://pancake.kiemtienonline360.com/#/swap" target="_blank">
                                 <p>Buy on Pancake Swap</p>
                             </Link>
 
@@ -67,11 +67,11 @@ function TimeMenu() {
                                     <div className="divider" />
                                     <p className="add-tokens-title">ADD TOKEN TO WALLET</p>
                                     <div className="divider" />
-                                    <div className="tooltip-item" onClick={addTokenToWallet("TIME", TIME_ADDRESS)}>
-                                        <p>TIME</p>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("EVE", EVE_ADDRESS)}>
+                                        <p>EVE</p>
                                     </div>
-                                    <div className="tooltip-item" onClick={addTokenToWallet("MEMO", MEMO_ADDRESS)}>
-                                        <p>MEMO</p>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("LOOT", LOOT_ADDRESS)}>
+                                        <p>LOOT</p>
                                     </div>
                                 </div>
                             )}

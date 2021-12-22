@@ -11,6 +11,7 @@ import DaiEIcon from "../assets/tokens/DAI.e.png";
 import DreggIcon from "../assets/tokens/DREGG.png";
 import EleIcon from "../assets/tokens/ELE.png";
 import ElkIcon from "../assets/tokens/ELK.png";
+import EveIcon from "../assets/tokens/EVE.png";
 import FraxIcon from "../assets/tokens/FRAX.png";
 import GbIcon from "../assets/tokens/GB.png";
 import HatIcon from "../assets/tokens/HAT.png";
@@ -51,13 +52,12 @@ export interface IToken {
     name: string;
     address: string;
     img: string;
-    isAvax?: boolean;
+    isEve?: boolean;
     decimals: number;
 }
 
 export const avax: IToken = {
     name: "AVAX",
-    isAvax: true,
     img: AvaxIcon,
     address: "",
     decimals: 18,
@@ -145,6 +145,14 @@ const elk: IToken = {
     address: "0xE1C110E1B1b4A1deD0cAf3E42BfBdbB7b5d7cE1C",
     img: ElkIcon,
     decimals: 18,
+};
+
+export const eve: IToken = {
+    name: "EVE",
+    address: "0xe5d08a0c671416ca254cdae8b8d5f08cb911f0b7",
+    img: EveIcon,
+    decimals: 18,
+    isEve: true,
 };
 
 const frax: IToken = {
@@ -406,6 +414,7 @@ export default [
     dregg,
     ele,
     elk,
+    eve,
     frax,
     gb,
     hat,

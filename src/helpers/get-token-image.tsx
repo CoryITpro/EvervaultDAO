@@ -7,10 +7,11 @@ function toUrl(tokenPath: string): string {
 }
 
 export function getTokenUrl(name: string) {
-    if (name == "EVE") {
+    console.log(name);
+    if (name == "eve") {
         return toUrl(EveImg);
     }
-    if (name === "LOOT") {
+    if (name === "loot") {
         return toUrl(LootImg);
     }
 

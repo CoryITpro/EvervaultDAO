@@ -695,9 +695,9 @@ contract EveBondDepository is Ownable {
 
 
     /* ======== STATE VARIABLES ======== */
-    address public immutable EVE; // token given as payment for bond
+    address public immutable LOOT; // token given as payment for bond
     address public immutable principle; // token used to create bond
-    address public immutable treasury; // mints EVE when receives principle
+    address public immutable treasury; // mints LOOT when receives principle
     address public immutable DAO; // receives profit share from bond
 
     AggregatorV3Interface internal priceFeed;
@@ -730,7 +730,7 @@ contract EveBondDepository is Ownable {
 
     // Info for bond holder
     struct Bond {
-        uint payout; // EVE remaining to be paid
+        uint payout; // LOOT remaining to be paid
         uint pricePaid; // In DAI, for front end viewing
         uint32 vesting; // Seconds left to vest
         uint32 lastTime; // Last interaction
@@ -751,14 +751,14 @@ contract EveBondDepository is Ownable {
     /* ======== INITIALIZATION ======== */
 
     constructor (
-        address _EVE,
+        address _LOOT,
         address _principle,
         address _treasury,
         address _DAO,
         address _feed
     ) {
-        require( _EVE != address(0) );
-        EVE = _EVE;
+        require( _LOOT != address(0) );
+        LOOT = _LOOT;
         require( _principle != address(0) );
         principle = _principle;
         require( _treasury != address(0) );
@@ -893,7 +893,7 @@ contract EveBondDepository is Ownable {
         uint value = ITreasury( treasury ).valueOf( principle, _amount );
         uint payout = payoutFor( value ); // payout to bonder is computed
 
-        require( payout >= 10000000, "Bond too small" ); // must be > 0.01 EVE ( underflow protection )
+        require( payout >= 10000000, "Bond too small" ); // must be > 0.01 LOOT ( underflow protection )
         require( payout <= maxPayout(), "Bond too large"); // size protection because there is no slippage
 
         /**
@@ -975,13 +975,13 @@ contract EveBondDepository is Ownable {
      */
     function stakeOrSend( address _recipient, bool _stake, uint _amount ) internal returns ( uint ) {
         if ( !_stake ) { // if user does not want to stake
-            IERC20( EVE ).transfer( _recipient, _amount ); // send payout
+            IERC20( LOOT ).transfer( _recipient, _amount ); // send payout
         } else { // if user wants to stake
             if ( useHelper ) { // use if staking warmup is 0
-                IERC20( EVE ).approve( stakingHelper, _amount );
+                IERC20( LOOT ).approve( stakingHelper, _amount );
                 IStakingHelper( stakingHelper ).stake( _amount, _recipient );
             } else {
-                IERC20( EVE ).approve( staking, _amount );
+                IERC20( LOOT ).approve( staking, _amount );
                 IStaking( staking ).stake( _amount, _recipient );
             }
         }
@@ -1029,7 +1029,7 @@ contract EveBondDepository is Ownable {
      *  @return uint
      */
     function maxPayout() public view returns ( uint ) {
-        return IERC20( EVE ).totalSupply().mul( terms.maxPayout ).div( 100000 );
+        return IERC20( LOOT ).totalSupply().mul( terms.maxPayout ).div( 100000 );
     }
 
     /**
@@ -1084,11 +1084,11 @@ contract EveBondDepository is Ownable {
 
 
     /**
-     *  @notice calculate current ratio of debt to EVE supply
+     *  @notice calculate current ratio of debt to LOOT supply
      *  @return debtRatio_ uint
      */
     function debtRatio() public view returns ( uint debtRatio_ ) {
-        uint supply = IERC20( EVE ).totalSupply();
+        uint supply = IERC20( LOOT ).totalSupply();
         debtRatio_ = FixedPoint.fraction(
             currentDebt().mul( 1e9 ),
             supply
@@ -1142,7 +1142,7 @@ contract EveBondDepository is Ownable {
     }
 
     /**
-     *  @notice calculate amount of EVE available for claim by depositor
+     *  @notice calculate amount of LOOT available for claim by depositor
      *  @param _depositor address
      *  @return pendingPayout_ uint
      */
@@ -1163,11 +1163,11 @@ contract EveBondDepository is Ownable {
     /* ======= AUXILLIARY ======= */
 
     /**
-     *  @notice allow anyone to send lost tokens (excluding principle or EVE) to the DAO
+     *  @notice allow anyone to send lost tokens (excluding principle or LOOT) to the DAO
      *  @return bool
      */
     function recoverLostToken( address _token ) external returns ( bool ) {
-        require( _token != EVE );
+        require( _token != LOOT );
         require( _token != principle );
         IERC20( _token ).safeTransfer( DAO, IERC20( _token ).balanceOf( address(this) ) );
         return true;

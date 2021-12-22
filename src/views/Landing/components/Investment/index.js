@@ -12,7 +12,7 @@ const Investment = () => (
             </div>
         </div>
         <h3>Investment Protection</h3>
-        <span>A Treasury that Stands the Test of Time</span>
+        <span>A Treasury that Stands the Test of Eve</span>
         <p>
             EverVault harnesses the power of MemeFi by combining the formidable tokenomics of <strong>SafeShiba</strong> with the ultra sound value of <strong>BTC</strong>,{" "}
             <strong>ETH</strong>, <strong>BNB</strong>, and <strong>Stablecoins</strong> to fill its treasury.

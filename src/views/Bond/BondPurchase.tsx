@@ -11,7 +11,7 @@ import { IAllBondData } from "../../hooks/bonds";
 import useDebounce from "../../hooks/debounce";
 import { messages } from "../../constants/messages";
 import { warning } from "../../store/slices/messages-slice";
-import Zapin from "./Zapin";
+// import Zapin from "./Zapin";
 
 interface IBondPurchaseProps {
     bond: IAllBondData;
@@ -27,7 +27,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
     const [useAvax, setUseAvax] = useState(false);
 
     const isBondLoading = useSelector<IReduxState, boolean>(state => state.bonding.loading ?? true);
-    const [zapinOpen, setZapinOpen] = useState(false);
+    // const [zapinOpen, setZapinOpen] = useState(false);
 
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
@@ -90,7 +90,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
     }, [bond.allowance]);
 
     const setMax = () => {
-        let amount: any = Math.min(bond.maxBondPriceToken * 0.9999, useAvax ? bond.avaxBalance * 0.99 : bond.balance);
+        let amount: any = Math.min(bond.maxBondPriceToken * 0.9999, useAvax ? bond.bnbBalance * 0.99 : bond.balance);
 
         if (amount) {
             amount = trim(amount);
@@ -111,15 +111,15 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
         dispatch(changeApproval({ address, bond, provider, networkID: chainID }));
     };
 
-    const handleZapinOpen = () => {
-        dispatch(calcBondDetails({ bond, value: "0", provider, networkID: chainID }));
-        setZapinOpen(true);
-    };
+    // const handleZapinOpen = () => {
+    //     dispatch(calcBondDetails({ bond, value: "0", provider, networkID: chainID }));
+    //     setZapinOpen(true);
+    // };
 
-    const handleZapinClose = () => {
-        dispatch(calcBondDetails({ bond, value: quantity, provider, networkID: chainID }));
-        setZapinOpen(false);
-    };
+    // const handleZapinClose = () => {
+    //     dispatch(calcBondDetails({ bond, value: quantity, provider, networkID: chainID }));
+    //     setZapinOpen(false);
+    // };
 
     const displayUnits = useAvax ? "AVAX" : bond.displayUnits;
 
@@ -196,7 +196,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                                 <Skeleton width="100px" />
                             ) : (
                                 <>
-                                    {trim(useAvax ? bond.avaxBalance : bond.balance, 4)} {displayUnits}
+                                    {trim(useAvax ? bond.bnbBalance : bond.balance, 4)} {displayUnits}
                                 </>
                             )}
                         </p>
@@ -204,12 +204,12 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
 
                     <div className="data-row">
                         <p className="bond-balance-title">You Will Get</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.bondQuote, 4)} TIME`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.bondQuote, 4)} EVE`}</p>
                     </div>
 
                     <div className={`data-row`}>
                         <p className="bond-balance-title">Max You Can Buy</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.maxBondPrice, 4)} TIME`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.maxBondPrice, 4)} EVE`}</p>
                     </div>
 
                     <div className="data-row">
@@ -224,7 +224,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
 
                     <div className="data-row">
                         <p className="bond-balance-title">Minimum purchase</p>
-                        <p className="bond-balance-title">0.01 TIME</p>
+                        <p className="bond-balance-title">0.01 EVE</p>
                     </div>
 
                     {recipientAddress !== address && (
@@ -235,7 +235,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     )}
                 </Box>
             </Slide>
-            <Zapin open={zapinOpen} handleClose={handleZapinClose} bond={bond} />
+            {/* <Zapin open={zapinOpen} handleClose={handleZapinClose} bond={bond} /> */}
         </Box>
     );
 }

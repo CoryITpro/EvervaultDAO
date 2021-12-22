@@ -9,7 +9,6 @@ import { IAppSlice } from "../../store/slices/app-slice";
 function Dashboard() {
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const app = useSelector<IReduxState, IAppSlice>(state => state.app);
-
     const trimmedStakingAPY = trim(app.stakingAPY * 100, 1);
 
     return (
@@ -91,7 +90,7 @@ function Dashboard() {
                         <Grid item lg={6} md={6} sm={6} xs={12}>
                             <div className="dashboard-card">
                                 <p className="card-title">Current Index</p>
-                                <p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.currentIndex), 2)} TIME`}</p>
+                                <p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.currentIndex), 2)} EVE`}</p>
                             </div>
                         </Grid>
 

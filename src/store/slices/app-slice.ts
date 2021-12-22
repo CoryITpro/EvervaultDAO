@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingContract, MemoTokenContract, TimeTokenContract } from "../../abi";
+import { StakingContract, LootTokenContract, EveTokenContract, DaoContract } from "../../abi";
 import { setAll } from "../../helpers";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { JsonRpcProvider } from "@ethersproject/providers";
@@ -17,56 +17,51 @@ export const loadAppDetails = createAsyncThunk(
     "app/loadAppDetails",
     //@ts-ignore
     async ({ networkID, provider }: ILoadAppDetails) => {
-        const mimPrice = getTokenPrice("MIM");
+        const busdPrice = getTokenPrice("BUSD");
         const addresses = getAddresses(networkID);
-
-        const ohmPrice = getTokenPrice("OHM");
-        const ohmAmount = 1512.12854088 * ohmPrice;
 
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
         const currentBlock = await provider.getBlockNumber();
         const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
-        const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
-        const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
+        const lootContract = new ethers.Contract(addresses.LOOT_ADDRESS, LootTokenContract, provider);
+        const eveContract = new ethers.Contract(addresses.EVE_ADDRESS, EveTokenContract, provider);
 
-        const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * mimPrice;
+        const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * busdPrice;
 
-        const totalSupply = (await timeContract.totalSupply()) / Math.pow(10, 9);
-        const circSupply = (await memoContract.circulatingSupply()) / Math.pow(10, 9);
+        const totalSupply = (await eveContract.totalSupply()) / Math.pow(10, 9);
+        const circSupply = (await lootContract.circulatingSupply()) / Math.pow(10, 9);
 
         const stakingTVL = circSupply * marketPrice;
         const marketCap = totalSupply * marketPrice;
 
         const tokenBalPromises = allBonds.map(bond => bond.getTreasuryBalance(networkID, provider));
         const tokenBalances = await Promise.all(tokenBalPromises);
-        const treasuryBalance = tokenBalances.reduce((tokenBalance0, tokenBalance1) => tokenBalance0 + tokenBalance1, ohmAmount);
+        const treasuryBalance = tokenBalances.reduce((tokenBalance0, tokenBalance1) => tokenBalance0 + tokenBalance1, 0);
 
         const tokenAmountsPromises = allBonds.map(bond => bond.getTokenAmount(networkID, provider));
         const tokenAmounts = await Promise.all(tokenAmountsPromises);
-        const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1, ohmAmount);
-
-        const timeBondsAmountsPromises = allBonds.map(bond => bond.getTimeAmount(networkID, provider));
-        const timeBondsAmounts = await Promise.all(timeBondsAmountsPromises);
-        const timeAmount = timeBondsAmounts.reduce((timeAmount0, timeAmount1) => timeAmount0 + timeAmount1, 0);
-        const timeSupply = totalSupply - timeAmount;
-
-        const rfv = rfvTreasury / timeSupply;
+        const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1, 0);
+        const eveBondsAmountsPromises = allBonds.map(bond => bond.getEveAmount(networkID, provider));
+        const eveBondsAmounts = await Promise.all(eveBondsAmountsPromises);
+        const eveAmount = eveBondsAmounts.reduce((eveAmount0, eveAmount1) => eveAmount0 + eveAmount1, 0);
+        const eveSupply = totalSupply - eveAmount;
+        const rfv = rfvTreasury / eveSupply;
 
         const epoch = await stakingContract.epoch();
         const stakingReward = epoch.distribute;
-        const circ = await memoContract.circulatingSupply();
+        const circ = await lootContract.circulatingSupply();
         const stakingRebase = stakingReward / circ;
         const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
         const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
 
         const currentIndex = await stakingContract.index();
         const nextRebase = epoch.endTime;
-
         const treasuryRunway = rfvTreasury / circSupply;
         const runway = Math.log(treasuryRunway) / Math.log(1 + stakingRebase) / 3;
 
         return {
-            currentIndex: Number(ethers.utils.formatUnits(currentIndex, "gwei")) / 4.5,
+            // currentIndex: currentIndexNumber(ethers.utils.formatUnits(currentIndex, "gwei")) / 4.5,
+            currentIndex: currentIndex,
             totalSupply,
             marketCap,
             currentBlock,

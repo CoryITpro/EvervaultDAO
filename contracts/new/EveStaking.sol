@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at snowtrace.io on 2021-11-06
-*/
-
 // SPDX-License-Identifier: AGPL-3.0-or-later
 pragma solidity 0.7.5;
 
@@ -553,8 +549,8 @@ contract Ownable is IOwnable {
     }
 }
 
-interface IMemo {
-    function rebase( uint256 ohmProfit_, uint epoch_) external returns (uint256);
+interface ILoot {
+    function rebase( uint256 lootProfit_, uint epoch_) external returns (uint256);
 
     function circulatingSupply() external view returns (uint256);
 
@@ -575,14 +571,14 @@ interface IDistributor {
     function distribute() external returns ( bool );
 }
 
-contract TimeStaking is Ownable {
+contract EveStaking is Ownable {
 
     using SafeMath for uint256;
     using SafeMath for uint32;
     using SafeERC20 for IERC20;
 
-    address public immutable Time;
-    address public immutable Memories;
+    address public immutable Eve;
+    address public immutable Loot;
 
     struct Epoch {
         uint number;
@@ -601,16 +597,16 @@ contract TimeStaking is Ownable {
     uint public warmupPeriod;
 
     constructor (
-        address _Time,
-        address _Memories,
+        address _Eve,
+        address _Loot,
         uint32 _epochLength,
         uint _firstEpochNumber,
         uint32 _firstEpochTime
     ) {
-        require( _Time != address(0) );
-        Time = _Time;
-        require( _Memories != address(0) );
-        Memories = _Memories;
+        require( _Eve != address(0) );
+        Eve = _Eve;
+        require( _Loot != address(0) );
+        Loot = _Loot;
 
         epoch = Epoch({
             length: _epochLength,
@@ -629,50 +625,50 @@ contract TimeStaking is Ownable {
     mapping( address => Claim ) public warmupInfo;
 
     /**
-        @notice stake OHM to enter warmup
+        @notice stake LOOT to enter warmup
         @param _amount uint
         @return bool
      */
     function stake( uint _amount, address _recipient ) external returns ( bool ) {
         rebase();
 
-        IERC20( Time ).safeTransferFrom( msg.sender, address(this), _amount );
+        IERC20( Eve ).safeTransferFrom( msg.sender, address(this), _amount );
 
         Claim memory info = warmupInfo[ _recipient ];
         require( !info.lock, "Deposits for account are locked" );
 
         warmupInfo[ _recipient ] = Claim ({
             deposit: info.deposit.add( _amount ),
-            gons: info.gons.add( IMemo( Memories ).gonsForBalance( _amount ) ),
+            gons: info.gons.add( ILoot( Loot ).gonsForBalance( _amount ) ),
             expiry: epoch.number.add( warmupPeriod ),
             lock: false
         });
 
-        IERC20( Memories ).safeTransfer( warmupContract, _amount );
+        IERC20( Loot ).safeTransfer( warmupContract, _amount );
         return true;
     }
 
     /**
-        @notice retrieve sOHM from warmup
+        @notice retrieve LOOT from warmup
         @param _recipient address
      */
     function claim ( address _recipient ) public {
         Claim memory info = warmupInfo[ _recipient ];
         if ( epoch.number >= info.expiry && info.expiry != 0 ) {
             delete warmupInfo[ _recipient ];
-            IWarmup( warmupContract ).retrieve( _recipient, IMemo( Memories ).balanceForGons( info.gons ) );
+            IWarmup( warmupContract ).retrieve( _recipient, ILoot( Loot ).balanceForGons( info.gons ) );
         }
     }
 
     /**
-        @notice forfeit sOHM in warmup and retrieve OHM
+        @notice forfeit LOOT in warmup and retrieve LOOT
      */
     function forfeit() external {
         Claim memory info = warmupInfo[ msg.sender ];
         delete warmupInfo[ msg.sender ];
 
-        IWarmup( warmupContract ).retrieve( address(this), IMemo( Memories ).balanceForGons( info.gons ) );
-        IERC20( Time ).safeTransfer( msg.sender, info.deposit );
+        IWarmup( warmupContract ).retrieve( address(this), ILoot( Loot ).balanceForGons( info.gons ) );
+        IERC20( Eve ).safeTransfer( msg.sender, info.deposit );
     }
 
     /**
@@ -683,7 +679,7 @@ contract TimeStaking is Ownable {
     }
 
     /**
-        @notice redeem sOHM for OHM
+        @notice redeem LOOT for EVE
         @param _amount uint
         @param _trigger bool
      */
@@ -691,16 +687,16 @@ contract TimeStaking is Ownable {
         if ( _trigger ) {
             rebase();
         }
-        IERC20( Memories ).safeTransferFrom( msg.sender, address(this), _amount );
-        IERC20( Time ).safeTransfer( msg.sender, _amount );
+        IERC20( Loot ).safeTransferFrom( msg.sender, address(this), _amount );
+        IERC20( Eve ).safeTransfer( msg.sender, _amount );
     }
 
     /**
-        @notice returns the sOHM index, which tracks rebase growth
+        @notice returns the LOOT index, which tracks rebase growth
         @return uint
      */
     function index() public view returns ( uint ) {
-        return IMemo( Memories ).index();
+        return ILoot( Loot ).index();
     }
 
     /**
@@ -709,7 +705,7 @@ contract TimeStaking is Ownable {
     function rebase() public {
         if( epoch.endTime <= uint32(block.timestamp) ) {
 
-            IMemo( Memories ).rebase( epoch.distribute, epoch.number );
+            ILoot( Loot ).rebase( epoch.distribute, epoch.number );
 
             epoch.endTime = epoch.endTime.add32( epoch.length );
             epoch.number++;
@@ -719,7 +715,7 @@ contract TimeStaking is Ownable {
             }
 
             uint balance = contractBalance();
-            uint staked = IMemo( Memories ).circulatingSupply();
+            uint staked = ILoot( Loot ).circulatingSupply();
 
             if( balance <= staked ) {
                 epoch.distribute = 0;
@@ -730,11 +726,11 @@ contract TimeStaking is Ownable {
     }
 
     /**
-        @notice returns contract OHM holdings, including bonuses provided
+        @notice returns contract EVE holdings, including bonuses provided
         @return uint
      */
     function contractBalance() public view returns ( uint ) {
-        return IERC20( Time ).balanceOf( address(this) ).add( totalBonus );
+        return IERC20( Eve ).balanceOf( address(this) ).add( totalBonus );
     }
 
     /**
@@ -744,7 +740,7 @@ contract TimeStaking is Ownable {
     function giveLockBonus( uint _amount ) external {
         require( msg.sender == locker );
         totalBonus = totalBonus.add( _amount );
-        IERC20( Memories ).safeTransfer( locker, _amount );
+        IERC20( Loot ).safeTransfer( locker, _amount );
     }
 
     /**
@@ -754,7 +750,7 @@ contract TimeStaking is Ownable {
     function returnLockBonus( uint _amount ) external {
         require( msg.sender == locker );
         totalBonus = totalBonus.sub( _amount );
-        IERC20( Memories ).safeTransferFrom( locker, address(this), _amount );
+        IERC20( Loot ).safeTransferFrom( locker, address(this), _amount );
     }
 
     enum CONTRACTS { DISTRIBUTOR, WARMUP, LOCKER }
