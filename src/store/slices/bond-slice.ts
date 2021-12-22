@@ -10,7 +10,7 @@ import { Bond } from "../../helpers/bond/bond";
 import { Networks } from "../../constants/blockchain";
 import { getBondCalculator } from "../../helpers/bond-calculator";
 import { RootState } from "../store";
-// import { avaxTime, wavax } from "../../helpers/bond";
+import { evesafeshib } from "../../helpers/bond";
 import { error, warning, success, info } from "../slices/messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
@@ -117,10 +117,10 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
     marketPrice = (marketPrice / Math.pow(10, 9)) * busdPrice;
     try {
         bondPrice = await bondContract.bondPriceInUSD();
-        // if (bond.name === avaxTime.name) {
-        //     const avaxPrice = getTokenPrice("AVAX");
-        //     bondPrice = bondPrice * avaxPrice;
-        // }
+        if (bond.name === evesafeshib.name) {
+            const safeshibPrice = getTokenPrice("SAFESHIB");
+            bondPrice = bondPrice * safeshibPrice;
+        }
         bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
     } catch (e) {
         console.log("error getting bondPriceInUSD", e);
@@ -137,6 +137,9 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         const maxValuation = await bondCalcContract.valuation(bond.getAddressForReserve(networkID), maxBodValue);
         const maxBondQuote = await bondContract.payoutFor(maxValuation);
         maxBondPriceToken = maxBondPrice / (maxBondQuote * Math.pow(10, -9));
+        console.log("+++++++++++++++++++", value);
+        console.log("---------------", Number(bondQuote));
+        console.log("*************", Number(maxBondPrice));
     } else {
         bondQuote = await bondContract.payoutFor(amountInWei);
         bondQuote = bondQuote / Math.pow(10, 18);
@@ -145,9 +148,9 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         maxBondPriceToken = maxBondPrice / (maxBondQuote * Math.pow(10, -18));
     }
 
-    if (!!value && bondQuote > maxBondPrice) {
-        dispatch(error({ text: messages.try_mint_more(maxBondPrice.toFixed(2).toString()) }));
-    }
+    // if (!!value && bondQuote > maxBondPrice) {
+    //     dispatch(error({ text: messages.try_mint_more(maxBondPrice.toFixed(2).toString()) }));
+    // }
 
     // Calculate bonds purchased
     const token = bond.getContractForReserve(networkID, provider);
@@ -210,7 +213,7 @@ export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, a
         if (useAvax) {
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { value: valueInWei, gasPrice });
         } else {
-            console.log(Number(valueInWei), maxPremium, depositorAddress);
+            console.log(valueInWei);
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { gasPrice });
         }
         dispatch(

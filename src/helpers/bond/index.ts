@@ -68,8 +68,8 @@ export const evesafeshib = new CustomLPBond({
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
         [Networks.BSC]: {
-            bondAddress: "0xc26850686ce755FFb8690EA156E5A6cf03DcBDE1",
-            reserveAddress: "0xf64e1c5B6E17031f5504481Ac8145F4c3eab4917",
+            bondAddress: "0x5dD1d9a10576eE7c9325e79d3e3D859F61A676B3",
+            reserveAddress: "0xA35dd1c0D28D92f2E5C0D23C3A41F7fE5FfbeeEC",
         },
     },
     lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
