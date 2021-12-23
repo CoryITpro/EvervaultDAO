@@ -28,3 +28,51 @@
 
     EveTreasury > toggle
     Distributor > addRecipient
+
+# Information seen on screens
+
+-   ## Dashboard
+
+    -   ### EVE Price
+
+        Means MarketPrice of EVE
+        From BUSD-EVE Lp token
+        Get count ratio regarding BUSD and multiply BUSD token price
+
+    -   ### Market Cap
+
+        (MarketPrice of EVE) \* (totalSupply of EVE)
+
+    -   ### TVL
+
+        (MarketPrice of EVE) \* (amount of EVE which is can be returned to users as staking rewards from LOOT)
+
+    -   ### APY
+
+        Math.pow(1 + rebased EVE amount / EVE for stake rewards, 365 \* 3) - 1;
+
+    -   ### Current Index
+
+            Means an increased LOOT amount compared to the standard amount (1) set before.
+
+    -   ### Treasury Balance
+
+            Means total $ amount of treasury assets bonded from Bonding
+            1. Stable Coin
+                Just get amount
+            2. Other token
+                Amount * Price of token
+            3. EVE-StableCoin LP Token
+                (LP / Total LP) * 2sqrt(Constant Product) * (Markdown of EVE-StableCoin LP Token)
+            4. EVE-OtherToken LP Token
+                (LP / Total LP) * 2sqrt(Constant Product) * (Markdown of EVE-StableCoin LP Token) * (OtherToken Price)
+
+    -   ### Backing per $EVE
+
+            (Reserve Coin Asset + LP Bond Asset) / (Eve Amount in LP)
+
+    -   ### Runway
+
+            (3 * (1 + APY)) ^ Runway = (Reserve Coin Asset + LP Bond Asset) / (amount of EVE which is can be returned to users as staking rewards from LOOT)
+
+-   ## Stake
