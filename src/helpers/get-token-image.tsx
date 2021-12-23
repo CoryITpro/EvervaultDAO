@@ -7,7 +7,6 @@ function toUrl(tokenPath: string): string {
 }
 
 export function getTokenUrl(name: string) {
-    console.log(name);
     if (name == "eve") {
         return toUrl(EveImg);
     }

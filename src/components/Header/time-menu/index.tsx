@@ -8,7 +8,6 @@ import { getTokenUrl } from "../../../helpers";
 
 const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async () => {
     const tokenImage = getTokenUrl(tokenSymbol.toLowerCase());
-    console.log(tokenAddress, tokenSymbol, TOKEN_DECIMALS, tokenImage);
     if (window.ethereum) {
         try {
             await window.ethereum.request({

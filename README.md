@@ -25,6 +25,77 @@
 17. Run `Eve > setVault(TreasuryAddress)`
 18. Run `EveTreasury > queue(5, Eve-Busd Pair Address)` and `EveTreasury > toggle(5, Eve-Busd Pair Address, EveBondingCalculatorAddress)`
 19. Run `EveTreasury > queue(0, BUSDBondAddress)` and `EveTreasury > toggle(0, BusdBondAddress)`
-
+20. Run `Distributor > addRecipient(EveStakingAddress, rate)`
     EveTreasury > toggle
     Distributor > addRecipient
+
+# Information seen on screens
+
+-   ## Dashboard
+
+    -   ### EVE Price
+
+        Means MarketPrice of EVE
+        From BUSD-EVE Lp token
+        Get count ratio regarding BUSD and multiply BUSD token price
+
+    -   ### Market Cap
+
+        (MarketPrice of EVE) \* (totalSupply of EVE)
+
+    -   ### TVL
+
+        (MarketPrice of EVE) \* (amount of EVE which is can be returned to users as staking rewards from LOOT)
+
+    -   ### APY
+
+        Math.pow(1 + rebased EVE amount / EVE for stake rewards, 365 \* 3) - 1;
+
+    -   ### Current Index
+
+            Means an increased LOOT amount compared to the standard amount (1) set before.
+
+    -   ### Treasury Balance
+
+            Means total $ amount of treasury assets bonded from Bonding
+            1. Stable Coin
+                Just get amount
+            2. Other token
+                Amount * Price of token
+            3. EVE-StableCoin LP Token
+                (LP / Total LP) * 2sqrt(Constant Product) * (Markdown of EVE-StableCoin LP Token)
+            4. EVE-OtherToken LP Token
+                (LP / Total LP) * 2sqrt(Constant Product) * (Markdown of EVE-StableCoin LP Token) * (OtherToken Price)
+
+    -   ### Backing per $EVE
+
+            (Reserve Coin Asset + LP Bond Asset) / (Eve Amount in LP)
+
+    -   ### Runway
+
+            (3 * (1 + APY)) ^ Runway = (Reserve Coin Asset + LP Bond Asset) / (amount of EVE which is can be returned to users as staking rewards from LOOT)
+
+-   ## Stake
+        1. How does Staking Work
+            - Per every rebases, Distributor Contract mints rewards for selected recipients and Staking Contract is one of that.
+              For example, when the rate of the Staking Contract is 0.45%, the EVE amount in Staking Contract is increased by 0.45% per every rebases.
+            - And everytime users buy bonds, following amounts of EVE is minted in Staking Contract and also it increases APR.
+              For example, APR is 0.57% now and 0.12 % of APR is from bond minting.
+            - Then amount of LOOT for stakers is increased to be equal to EVEs of Staking Contract
+        2. Means of Statistics
+            - APY
+                Math.pow(1 + rebased EVE amount / EVE for stake rewards, 365 \* 3) - 1;
+            - TVL
+                (MarketPrice of EVE) \* (amount of EVE which is can be returned to users as staking rewards from LOOT)
+            - Current Index
+                Means an increased LOOT amount compared to the standard amount (1) set before.
+            - Your Balance
+                Amount of EVE in your wallet, which is not staked yet.
+            - Your Staked Balance
+                Amount of EVE which can be reedeemed now
+            - Next Reward Amount
+                Shows how many EVEs are increased for you in next rebase
+            - Next Reward Yield
+                Next Reward Amount / Your Staked Balance * 100 (%)
+            - ROI(5-Day Rate)
+                Math.pow(1 + rebased EVE amount / EVE for stake rewards, 365 \* 3) - 1;
