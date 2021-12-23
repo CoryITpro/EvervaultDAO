@@ -79,9 +79,6 @@
         1. How does Staking Work
             - Per every rebases, Distributor Contract mints rewards for selected recipients and Staking Contract is one of that.
               For example, when the rate of the Staking Contract is 0.45%, the EVE amount in Staking Contract is increased by 0.45% per every rebases.
-            - And everytime users buy bonds, following amounts of EVE is minted in Staking Contract and also it increases APR.
-              For example, APR is 0.57% now and 0.12 % of APR is from bond minting.
-            - Then amount of LOOT for stakers is increased to be equal to EVEs of Staking Contract
         2. Means of Statistics
             - APY
                 Math.pow(1 + rebased EVE amount / EVE for stake rewards, 365 \* 3) - 1;
@@ -99,3 +96,42 @@
                 Next Reward Amount / Your Staked Balance * 100 (%)
             - ROI(5-Day Rate)
                 Math.pow(1 + rebased EVE amount / EVE for stake rewards, 365 \* 3) - 1;
+    ## Mint
+        1. Parameters Meaning
+            - Price of bond
+                Get Dollar Bond Price from Smart Contracts.
+                - Stable Token (BUSD)
+                    1 + controlVariable * (locked EVE amount for bonders) / (totalSupply of EVE)
+                - Nonstale Reserve Token
+                    (Stable Token Bond Price) * (marketPrice of NonStable Reserve Token)
+                - StableToken-EVE LP Token
+                    a * b = k, here b is EVE.
+                    (1 + controlVariable * (locked EVE amount for bonders)) * (a * 2 / sqrt(k)))
+                - NonStableToken-EVE LP Token
+                    a * b = k, here b is EVE.
+                    Marketprice of NonStableToken * (1 + controlVariable * (locked EVE amount for bonders)) * (a * 2 / sqrt(k)))
+            - ROI
+                Discount Rate; (marketPrice - bondPrice) / bondPrice
+            - Purchased
+                Get Dollar Price of assets in Treasury
+                - Stable Token (BUSD)
+                    same as amount
+                - Nonstale Reserve Token
+                    (Stable Token Bond Price) * (amount)
+                - StableToken-EVE LP Token
+                    a * b = k, here b is EVE.
+                    (1 + controlVariable * (locked EVE amount for bonders)) * (a * 2 / sqrt(k)))
+                - NonStableToken-EVE LP Token
+                    a * b = k, here b is EVE.
+                    Marketprice of NonStableToken * (1 + controlVariable * (locked EVE amount for bonders)) * (a * 2 / sqrt(k)))
+                - StableToken-EVE LP Token
+                    a * b = k; b is EVE
+                    (Amount in Treasury) * 2 * a / (totalSupply of LP)
+                - NonStableToken-EVE LP Token
+                    a * b = k; b is EVE
+                    (MarketPrice of NonStableToken) * (Amount in Treasury) * 2 * a / (totalSupply of LP)
+        2. How does Bonding work
+            - First bonders click Mint Button
+            - Then assets goes to following BondDepositoryContract.
+            - Get count of EVEs from assets and bondPrices to return.
+              Original EVEs count are calculated and the difference between them can afford fee to DAOs/
