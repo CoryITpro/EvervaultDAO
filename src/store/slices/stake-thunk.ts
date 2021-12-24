@@ -64,8 +64,8 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     return dispatch(
         fetchAccountSuccess({
             staking: {
-                eveStake: Number(stakeAllowance),
-                lootUnstake: Number(unstakeAllowance),
+                eve: Number(stakeAllowance),
+                loot: Number(unstakeAllowance),
             },
         }),
     );
