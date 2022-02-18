@@ -135,3 +135,5 @@
             - Then assets goes to following BondDepositoryContract.
             - Get count of EVEs from assets and bondPrices to return.
               Original EVEs count are calculated and the difference between them can afford fee to DAOs/
+
+Will update more as we study
